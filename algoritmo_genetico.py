@@ -15,7 +15,10 @@ class Individuo():
         self.valores = valores
         self.limite_espacos = limite_espacos
         # cada indivíduo etá uma nota para saber se é bom ou não
+        # e será o somatório dos valores da carga
         self.nota_avaliacao = 0
+        # espaço total usado neste carregamento
+        self.espaco_usado = 0
         self.geracao = geracao
         # cromossomo será preechido por soluções representadas por 0's e 1's
         self.cromossomo = []
@@ -29,6 +32,23 @@ class Individuo():
                 self.cromossomo.append("0")
             else:
                 self.cromossomo.append("1")
+                
+    # função que vai avaliar se a solução é boa ou não
+    def avaliação(self):
+        nota = 0
+        soma_espacos = 0
+        
+        for i in range(len(self.cromossomo)):
+            if self.cromossomo[i] == "1":
+                nota += self.valores[i]
+                soma_espacos += self.espacos[i]
+            if soma_espacos > self.limite_espacos:
+                # apenas rebaixou a nota dos ruins para 1
+                # para poder levar elas em considereção
+                # é um padrão usar 1 quando trabalhar com algorimtos genéticos
+                nota = 1
+            self.nota_avaliacao = nota
+            self.espaco_usado = soma_espacos
         
 if __name__ == '__main__':
     
@@ -91,7 +111,14 @@ if __name__ == '__main__':
     print(f"Valores = {str(individuo1.valores)}")
     print(f"Cromossomo = {str(individuo1.cromossomo)}")
     print()
-    print("Produtos que serão carregados:")
+    #contador de produtos levados
+    cont = 1
+    print("Componentes da carga:")
     for i in range(len(lista_produtos)):
         if individuo1.cromossomo[i] == '1':
-            print(f"Nome: {lista_produtos[i].nome} | Valor R${lista_produtos[i].valor:.2f}")
+            print(f"{cont} Nome: {lista_produtos[i].nome} | Valor R${lista_produtos[i].valor:.2f}")
+            cont += 1
+            
+    individuo1.avaliação()
+    print(f"Nota = {individuo1.nota_avaliacao:.2f}")
+    print(f"Espaço usado = {individuo1.espaco_usado:.2f}")
