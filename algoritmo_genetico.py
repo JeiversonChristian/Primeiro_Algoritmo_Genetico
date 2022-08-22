@@ -49,6 +49,23 @@ class Individuo():
                 nota = 1
             self.nota_avaliacao = nota
             self.espaco_usado = soma_espacos
+            
+    def crossover(self, outro_individuo):
+        # ponto de corte do cromossomo (número inteiro de 0 a 14)
+        corte = round(random() * len(self.cromossomo))
+        
+        # [0:corte] da casa 0 até a casa (1 antes) do corte, [corte::] daí em diante
+        # + concatena dois vetores - é o crossover
+        filho1 = outro_individuo.cromossomo[0:corte] + self.cromossomo[corte::]
+        filho2 = self.cromossomo[0:corte] + outro_individuo.cromossomo[corte::]
+        
+        # crio novos indivíduos com os dados dos pais (o que vai mudar é o cromossomo) obs: geração+1)
+        filhos = [Individuo(self.espacos, self.valores, self.limite_espacos, self.geracao+1),
+                  Individuo(self.espacos, self.valores, self.limite_espacos, self.geracao+1)]
+        
+        filhos[0].cromossomo = filho1
+        filhos[1].cromossomo = filho2
+        return filhos        
         
 if __name__ == '__main__':
     
@@ -106,14 +123,12 @@ if __name__ == '__main__':
     # limite de espaço do caminhão: 3m³
     limite = 3
     
+    # imprimindo indivíduo 1----------------------------------------------
     individuo1 = Individuo(espacos, valores, limite)
-    print(f"Espaços = {str(individuo1.espacos)}")
-    print(f"Valores = {str(individuo1.valores)}")
-    print(f"Cromossomo = {str(individuo1.cromossomo)}")
-    print()
+    print("\nIndivíduo 1")
+   
     #contador de produtos levados
     cont = 1
-    print("Componentes da carga:")
     for i in range(len(lista_produtos)):
         if individuo1.cromossomo[i] == '1':
             print(f"{cont} Nome: {lista_produtos[i].nome} | Valor R${lista_produtos[i].valor:.2f}")
@@ -122,3 +137,21 @@ if __name__ == '__main__':
     individuo1.avaliação()
     print(f"Nota = {individuo1.nota_avaliacao:.2f}")
     print(f"Espaço usado = {individuo1.espaco_usado:.2f}")
+    
+    
+    # imprimindo indivíduo 2----------------------------------------------
+    individuo2 = Individuo(espacos, valores, limite)
+    print("\nIndivíduo 2")
+   
+    #contador de produtos levados
+    cont = 1
+    for i in range(len(lista_produtos)):
+        if individuo2.cromossomo[i] == '1':
+            print(f"{cont} Nome: {lista_produtos[i].nome} | Valor R${lista_produtos[i].valor:.2f}")
+            cont += 1
+            
+    individuo2.avaliação()
+    print(f"Nota = {individuo2.nota_avaliacao:.2f}")
+    print(f"Espaço usado = {individuo2.espaco_usado:.2f}")
+    
+    individuo1.crossover(individuo2)
