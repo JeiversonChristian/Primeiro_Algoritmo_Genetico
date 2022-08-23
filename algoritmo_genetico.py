@@ -50,6 +50,7 @@ class Individuo():
             self.nota_avaliacao = nota
             self.espaco_usado = soma_espacos
             
+    # função que mistura dois indivíduos e gera filhos
     def crossover(self, outro_individuo):
         # ponto de corte do cromossomo (número inteiro de 0 a 14)
         corte = round(random() * len(self.cromossomo))
@@ -65,7 +66,22 @@ class Individuo():
         
         filhos[0].cromossomo = filho1
         filhos[1].cromossomo = filho2
-        return filhos        
+        return filhos  
+
+    # função que vai mutar o cromossomo
+    def mutacao(self, taxa_mutacao):
+        print(f"Antes: {self.cromossomo}")
+        for i in range(len(self.cromossomo)):
+            if random() < taxa_mutacao:
+                if self.cromossomo[i] == "1":
+                    self.cromossomo[i] = "0"
+                else:
+                    self.cromossomo[i] = "1"
+        print(f"Depois: {self.cromossomo}")
+        
+        # retorna o objeto já com a modificação feita
+        return self
+    
         
 if __name__ == '__main__':
     
@@ -155,3 +171,6 @@ if __name__ == '__main__':
     print(f"Espaço usado = {individuo2.espaco_usado:.2f}")
     
     individuo1.crossover(individuo2)
+    
+    individuo1.mutacao(0.05)
+    individuo2.mutacao(0.05)
