@@ -34,7 +34,7 @@ class Individuo():
                 self.cromossomo.append("1")
                 
     # função que vai avaliar se a solução é boa ou não
-    def avaliação(self):
+    def avaliacao(self):
         nota = 0
         soma_espacos = 0
         
@@ -99,6 +99,13 @@ class AlgoritmoGenetico():
             self.populacao.append(Individuo(espacos, valores, limite_espacos))
         self.melhor_solucao = self.populacao[0]
         
+    def ordena_populacao(self):
+        # sorted : função que ordena
+        self.populacao = sorted(self.populacao, 
+                                key =  lambda populacao: populacao.nota_avaliacao,
+                                reverse = True)        
+    
+        
 if __name__ == '__main__':
     
     # criando cada (objeto produto) da (classe Produto)
@@ -159,10 +166,14 @@ if __name__ == '__main__':
     
     ag = AlgoritmoGenetico(tamanho_populacao)
     ag.inicializa_populacao(espacos, valores, limite)
+    for individuo in ag.populacao:
+        individuo.avaliacao()
+    ag.ordena_populacao()
     for i in range(ag.tamanho_populacao):
         print(f"*** Indivíduo {i} ***\n")
         print(f"Espaços = {str(ag.populacao[i].espacos)}\n")
         print(f"Valores = {str(ag.populacao[i].valores)}\n")
         print(f"Cromossomo = {str(ag.populacao[i].cromossomo)}\n")
+        print(f"Nota = {ag.populacao[i].nota_avaliacao}\n")
         
         
