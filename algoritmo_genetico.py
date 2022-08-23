@@ -81,7 +81,23 @@ class Individuo():
         
         # retorna o objeto já com a modificação feita
         return self
-    
+
+# class principal, o algoritmo genético em si
+class AlgoritmoGenetico():
+    def __init__(self, tamanho_populacao):
+        self.tamanho_populacao = tamanho_populacao
+        # população será preenchida com os indivíduos
+        self.populacao = []
+        self.geracao = 0
+        # a melhor solução é que tem a maior nota
+        self.melhor_solucao = 0
+        
+    # são os mesmos parâmetros do indivíduo, pois
+    # uma população são várias indivíduos
+    def inicializa_populacao(self, espacos, valores, limite_espacos):
+        for i in range(self.tamanho_populacao):
+            self.populacao.append(Individuo(espacos, valores, limite_espacos))
+        self.melhor_solucao = self.populacao[0]
         
 if __name__ == '__main__':
     
@@ -139,38 +155,14 @@ if __name__ == '__main__':
     # limite de espaço do caminhão: 3m³
     limite = 3
     
-    # imprimindo indivíduo 1----------------------------------------------
-    individuo1 = Individuo(espacos, valores, limite)
-    print("\nIndivíduo 1")
-   
-    #contador de produtos levados
-    cont = 1
-    for i in range(len(lista_produtos)):
-        if individuo1.cromossomo[i] == '1':
-            print(f"{cont} Nome: {lista_produtos[i].nome} | Valor R${lista_produtos[i].valor:.2f}")
-            cont += 1
-            
-    individuo1.avaliação()
-    print(f"Nota = {individuo1.nota_avaliacao:.2f}")
-    print(f"Espaço usado = {individuo1.espaco_usado:.2f}")
+    tamanho_populacao = 20
     
-    
-    # imprimindo indivíduo 2----------------------------------------------
-    individuo2 = Individuo(espacos, valores, limite)
-    print("\nIndivíduo 2")
-   
-    #contador de produtos levados
-    cont = 1
-    for i in range(len(lista_produtos)):
-        if individuo2.cromossomo[i] == '1':
-            print(f"{cont} Nome: {lista_produtos[i].nome} | Valor R${lista_produtos[i].valor:.2f}")
-            cont += 1
-            
-    individuo2.avaliação()
-    print(f"Nota = {individuo2.nota_avaliacao:.2f}")
-    print(f"Espaço usado = {individuo2.espaco_usado:.2f}")
-    
-    individuo1.crossover(individuo2)
-    
-    individuo1.mutacao(0.05)
-    individuo2.mutacao(0.05)
+    ag = AlgoritmoGenetico(tamanho_populacao)
+    ag.inicializa_populacao(espacos, valores, limite)
+    for i in range(ag.tamanho_populacao):
+        print(f"*** Indivíduo {i} ***\n")
+        print(f"Espaços = {str(ag.populacao[i].espacos)}\n")
+        print(f"Valores = {str(ag.populacao[i].valores)}\n")
+        print(f"Cromossomo = {str(ag.populacao[i].cromossomo)}\n")
+        
+        
