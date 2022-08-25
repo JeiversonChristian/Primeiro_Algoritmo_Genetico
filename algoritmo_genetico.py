@@ -98,6 +98,10 @@ class AlgoritmoGenetico:
         # obs.: a chave tem o nome que eu quiser, mas ela é algo que está dentro de "populacao"
         self.populacao = sorted(self.populacao, key=lambda individuo: individuo.nota_avaliacao, reverse=True)
 
+    def melhor_individuo(self, individuo):
+        if individuo.nota_avaliacao > self.melhor_solucao.nota_avaliacao:
+            self.melhor_solucao = individuo
+
 
 # --------------------------------------------------------------------------------------------------------------------
 
@@ -138,14 +142,9 @@ if __name__ == '__main__':
     for individuo in ag.populacao:
         individuo.avaliacao()
     ag.ordena_populacao()
-    print()
-    for i in range(ag.tamanho_populacao):
-        print(f"*** Indivíduo {i+1} ***")
-        print(f"Espaços: {ag.populacao[i].espacos}")
-        print(f"Valores: {ag.populacao[i].valores}")
-        print(f"Cromossomo: {ag.populacao[i].cromossomo}")
-        print(f"Nota: {ag.populacao[i].nota_avaliacao}")
-        print()
+    ag.melhor_individuo(ag.populacao[0])
+    print(f"Melhor solução para o problema: {ag.melhor_solucao.cromossomo}")
+    print(f"Nota: {ag.melhor_solucao.nota_avaliacao}")
 
 
 # --------------------------------------------------------------------------------------------------------------------
