@@ -107,6 +107,30 @@ class AlgoritmoGenetico:
         for individuo in self.populacao:
             soma += individuo.nota_avaliacao
         return soma
+    
+    # def seleciona_pai(self, soma_avaliacao):
+        # pai = -1
+        # valor_sorteado = random() * soma_avaliacao
+        # soma = 0
+        # i = 0
+        # while i < len(self.populacao) and soma < valor_sorteado:
+            # soma += self.populacao[i].nota_avaliacao
+            # pai += 1
+            # i += 1
+        # return pai
+
+    def seleciona_pai(self, soma_avaliacao):
+        pai = -1
+        distancia = soma_avaliacao
+        valor_sorteado = random() * soma_avaliacao
+        for i in range(len(self.populacao)):
+            if abs(valor_sorteado - self.populacao[i].nota_avaliacao) < distancia:
+                distancia = abs(valor_sorteado - self.populacao[i].nota_avaliacao)
+                pai = i
+            elif abs(valor_sorteado - self.populacao[i].nota_avaliacao) == distancia:
+                if self.populacao[pai].nota_avaliacao < self.populacao[i].nota_avaliacao:
+                    pai = i
+        return pai
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -150,7 +174,11 @@ if __name__ == '__main__':
     ag.ordena_populacao()
     ag.melhor_individuo(ag.populacao[0])
     soma = ag.soma_avaliacoes()
-    print(f"Soma das avaliações: {soma}")    
+    for i in range(0, ag.tamanho_populacao, 2):
+        pa1 = ag.seleciona_pai(soma)
+        pa2 = ag.seleciona_pai(soma)
+    print(ag.populacao[pa1].nota_avaliacao)
+    print(ag.populacao[pa2].nota_avaliacao)   
 
 
 # --------------------------------------------------------------------------------------------------------------------
