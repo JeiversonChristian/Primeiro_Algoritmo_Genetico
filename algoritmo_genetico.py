@@ -1,4 +1,7 @@
 from random import random
+# talvez precise instalar a seguinte blioteca antes
+# ela é usada para gerar um gráfico
+import matplotlib.pyplot as plt
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -85,6 +88,7 @@ class AlgoritmoGenetico:
         self.populacao = []
         self.geracao = 0
         self.melhor_solucao = 0
+        self.lista_solucoes = []
 
     def inicializa_populacao(self, espacos, valores, limite_espacos):
 
@@ -108,16 +112,16 @@ class AlgoritmoGenetico:
             soma += individuo.nota_avaliacao
         return soma
     
-    # def seleciona_pai(self, soma_avaliacao):
-        # pai = -1
-        # valor_sorteado = random() * soma_avaliacao
-        # soma = 0
-        # i = 0
-        # while i < len(self.populacao) and soma < valor_sorteado:
-            # soma += self.populacao[i].nota_avaliacao
-            # pai += 1
-            # i += 1
-        # return pai
+    """def seleciona_pai(self, soma_avaliacao):
+        pai = -1
+        valor_sorteado = random() * soma_avaliacao
+        soma = 0
+        i = 0
+        while i < len(self.populacao) and soma < valor_sorteado:
+            soma += self.populacao[i].nota_avaliacao
+            pai += 1
+            i += 1
+        return pai"""
 
     def seleciona_pai(self, soma_avaliacao):
         pai = -1
@@ -144,6 +148,8 @@ class AlgoritmoGenetico:
             individuo.avaliacao()
 
         self.ordena_populacao()
+        self.melhor_solucao = self.populacao[0]
+        self.lista_solucoes.append(self.melhor_solucao.nota_avaliacao)
 
         self.visualiza_geracao()
 
@@ -170,6 +176,7 @@ class AlgoritmoGenetico:
             self.visualiza_geracao()
     
             melhor = self.populacao[0]
+            self.lista_solucoes.append(melhor.nota_avaliacao)
             self.melhor_individuo(melhor)
 
         print("\nMelhor solução:")
@@ -227,6 +234,14 @@ if __name__ == '__main__':
             print(f"{lista_produtos[i].nome.ljust(22)} | ", end="")
             print(f"{lista_produtos[i].espaco:.5f} m² | ", end="")
             print(f"R$ {lista_produtos[i].valor:.2f}")
+            
+    """print()
+    for valor in ag.lista_solucoes:
+        print(valor)"""
+        
+    plt.plot(ag.lista_solucoes)
+    plt.title("Acompanhemento dos Valores")
+    plt.show()
 
 
 # --------------------------------------------------------------------------------------------------------------------
