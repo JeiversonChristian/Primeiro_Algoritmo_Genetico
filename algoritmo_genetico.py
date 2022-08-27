@@ -1,7 +1,7 @@
 # Algoritmo do Caminhão (Aceito sugestões de nomes)
 
 
-# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------------
 #Bibliotecas 
 
 # Biblioteca que gera números aleatórios
@@ -13,11 +13,11 @@ import matplotlib.pyplot as plt
 # Biblioteca que conecta ao banco de dados do mysql
 # Para instalar no windons cmd: pip install mysql
 from mysql.connector import connect
-# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------------
 
 
 # --------------------------------------------------------------------------------------------------------------------
-# Rece os dados dos produtos
+# Recebe os dados dos produtos
 class Produto:
 
     def __init__(self, nome, espaco, valor):
