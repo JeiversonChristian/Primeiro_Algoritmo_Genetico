@@ -1,7 +1,10 @@
 from random import random
 # talvez precise instalar a seguinte blioteca antes
+# com o ide spyder, usando Anaconda não precisei
 # ela é usada para gerar um gráfico
 import matplotlib.pyplot as plt
+# para instalar eu digitei no prompt: pip install mysql
+from mysql.connector import connect
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -195,8 +198,21 @@ class AlgoritmoGenetico:
 
 # --------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
+    
+    lista_produtos = []
+    
+    conexao = connect(host='localhost', database='produtos', user='root', password='nosreviejjj7')
+    cursor = conexao.cursor()
+    cursor.execute('select nome, espaco, valor, quantidade from produtos')
+    for produto in cursor:
+        # print(produto[3])
+        for i in range(produto[3]):
+            lista_produtos.append(Produto(produto[0], produto[1], produto[2]))
+    
+    cursor.close()
+    conexao.close()
 
-    p1 = Produto("Geladeira Dako", 0.751, 999.90)
+    """p1 = Produto("Geladeira Dako", 0.751, 999.90)
     p2 = Produto("Iphone 6", 0.0000899, 2199.12)
     p3 = Produto("TV 55' ", 0.400, 4346.99)
     p4 = Produto("TV 50' ", 0.290, 3999.90)
@@ -211,19 +227,18 @@ if __name__ == '__main__':
     p13 = Produto("Notebook Lenovo", 0.498, 1999.90)
     p14 = Produto("Notebook Asus", 0.527, 3999.00)
 
-    lista_produtos = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14]
+    lista_produtos = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14]"""
 
     nomes = []
     espacos = []
     valores = []
-    limite_espacos = 3
 
     for produto in lista_produtos:
         nomes.append(produto.nome)
         espacos.append(produto.espaco)
         valores.append(produto.valor)
 
-    limite_espacos = 3
+    limite_espacos = 10
     tamanho_populacao = 20
     taxa_mutacao = 0.01
     numero_geracoes = 100
