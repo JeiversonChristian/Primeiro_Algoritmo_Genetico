@@ -1,9 +1,17 @@
 # Primeiro Algoritmo Genético
-## Meu primeiro algoritmo genético que fiz no curso "Algoritmos Genéticos em Python"
+### Meu primeiro algoritmo genético que fiz no curso "Algoritmos Genéticos em Python"
 
 Este projeto contém o primeiro algoritmo genético que fiz no curso "Algoritmos Genéticos em Python" na [iaexpert.academy](https://iaexpert.academy/courses/algoritmos-geneticos-python/)
 
-## O seguinte texto copiei integralmente do site do curso:
+## Resumo
+
+Trata-se de um algoritmo que consegue calcular quais produtos deverão ser carregados em um caminhão para maximar o lucro.
+
+Há duas pastas neste projeto:
+* implementacao_manual: Onde há o algoritmo "feito na mão", isto é, sem o auxílio de bibliotecas específicas de inteligência artificial.
+* implementacao_deap: Onde há basicamente o mesmo algoritmo, mas usando a biblioteca deap, que é uma biblioteca específica para esse tipo de algoritmo.
+
+### O seguinte texto copiei integralmente do site do curso:
 
 ## Requisitos
 
