@@ -1,6 +1,8 @@
 # Primeiro Algoritmo Genético
 ### Meu primeiro algoritmo genético que fiz no curso "Algoritmos Genéticos em Python"
 
+## Projeto concluído
+
 Este projeto contém o primeiro algoritmo genético que fiz no curso "Algoritmos Genéticos em Python" na [iaexpert.academy](https://iaexpert.academy/courses/algoritmos-geneticos-python/)
 
 ## Resumo
